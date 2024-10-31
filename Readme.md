@@ -1,8 +1,9 @@
 # Личный проект «Кекстаграм»
 
-* Студент: [Анна Поддубная](https://up.htmlacademy.ru/javascript-individual/2/user/2585105).
+
+* Студент: [Анна Поддубгая](https://up.htmlacademy.ru/javascript-individual/2/user/2585105).
 * Наставник: [Евгений Лепёшкин](https://htmlacademy.ru/profile/spearance).
-.
+
 
 ---
 
