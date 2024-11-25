@@ -5,7 +5,7 @@ const lineLength = (str, maxLength) => {
 
   return false;
 };
-
+lineLength();
 
 const isPalindrom = (string) => {
   const lowerCaseString = string.toLowerCase().replaceAll(' ', '');
@@ -21,8 +21,7 @@ const isPalindrom = (string) => {
   }
   return true;
 };
-
-
+isPalindrom();
 
 //цикл — для перебора полученной строки,
 //функция parseInt() — для превращения в число отдельных символов и результирующей строки,
@@ -30,6 +29,7 @@ const isPalindrom = (string) => {
 //метод toString() — на случай, если в качестве параметра пришло число.
 
 const parseInt = (string) => {
-  const reversed = Number.isNaN().toString()
-  return string.parseInt() === reversed
-}
+  const reversed = Number.isNaN().toString();
+  return string.parseInt() === reversed;
+};
+parseInt();
