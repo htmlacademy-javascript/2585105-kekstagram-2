@@ -1,36 +1,27 @@
 const lineLength = (str, maxLength) => {
- if (str.length <= maxLength) {
-return true
-}
+  if (str.length <= maxLength) {
+    return true;
+  }
 
- return false
-}
-
-const lineLength = (str, maxLength) => str.length <= maxLength
+  return false;
+};
 
 
 const isPalindrom = (string) => {
-  const lowerCaseString = string.toLowerCase().replaceAll(' ', '')
+  const lowerCaseString = string.toLowerCase().replaceAll(' ', '');
 
-  let lastIndex = lowerCaseString.length - 1
+  let lastIndex = lowerCaseString.length - 1;
 
   for (let i = 0; i < lowerCaseString.length; i++) {
     if (lowerCaseString[i] !== lowerCaseString[lastIndex]) {
 
-      return false
+      return false;
     }
-    lastIndex--
+    lastIndex--;
   }
-  return true
-}
+  return true;
+};
 
-
-const isPalindrom = (string) => {
-  const reversed = string.split('').reverse().join('').toLowerCase()
-
-
-  return string.toLowerCase() === reversed
-}
 
 
 //цикл — для перебора полученной строки,
