@@ -5,10 +5,10 @@ const lineLength = (str, maxLength) => {
 
   return false;
 };
-lineLength();
+// lineLength('str', 20);
 
 const isPalindrom = (string) => {
-  const lowerCaseString = string.toLowerCase().replaceAll(' ', '');
+  // const lowerCaseString = string.toLowerCase().replaceAll(' ', '');
 
   let lastIndex = lowerCaseString.length - 1;
 
