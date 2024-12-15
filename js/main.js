@@ -1,67 +1,53 @@
-const MESSAGE_SET =
-  'Всё отлично! В целом всё неплохо. Но не всё. Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально. Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше. Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше. Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!';
-
-// набор имен (12)
-const NAMES_SET =
-  'Егор, Иван, Василий, Александр, Дарья, Мария, Петр, Наталья, Михаил, Дмитрий, Ирина, Татьяна';
-
 const MIN_LIKES = 15;
 const MAX_LIKES = 200;
 
-// Функции получения случайного числа из заданного диапазона
-const getRandomInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  let previousResult = -1;
+const MESSAGES = [
+  'Всё отлично!',
+  'В целом всё неплохо',
+  'Но не всё.',
+  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра.',
+];
 
-  return () => {
-    const result = Math.floor(Math.random() * (upper - lower + 1) + lower);
 
-    // Исключение повторения значения предыдущего вызова (для комментариев)
-    if (previousResult !== result) {
-      previousResult = result;
-      return result;
-    }
-    return result === upper ? lower : result + 1;
-  };
+const NAMES = [
+  'Егор',
+  'Иван',
+  'Василий',
+  'Александр',
+  'Дарья',
+  'Мария'
+];
+
+
+const getRandomInteger = (min, max) => Math.floor(min + Math.random() * (max + 1 - min));
+
+const createIdGenerator = () => {
+  let lastId = 0;
+  return () => ++lastId;
 };
 
-// Создание вложенного объекта Comments
-const createComment = () => {
-  let id = 1; // Уникальный идентификатор для комментариев
-  const messageArray = MESSAGE_SET.split('. ');
-  const nameArray = NAMES_SET.split(', ');
+const generatePhotoId = createIdGenerator();
+const generateUrlId = createIdGenerator();
+const generateCommentId = createIdGenerator();
 
-  const indexMessageArr = getRandomInteger(0, messageArray.length - 1);
-  const indexNameArr = getRandomInteger(0, nameArray.length - 1);
+const createComment = () => ({
+  id: generateCommentId(),
+  message: MESSAGES[getRandomInteger(0, MESSAGES.length - 1)],
+  name: NAMES[getRandomInteger(0, NAMES.length - 1)],
+  avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
+});
 
-  return () => {
-    const comment = {};
-    const idAvatar = getRandomInteger(1, 6);
+const createPhoto = () => ({
+  id: generatePhotoId(),
+  url: `photos/${generateUrlId()}.jpg`,
+  description: 'У этого фото пока не добавили описание',
+  comments: Array.from({ length: getRandomInteger(0, 30) }, createComment),
+  likes: getRandomInteger(MIN_LIKES, MAX_LIKES),
+});
 
-    comment.id = id++;
-    comment.avatar = 'img/avatar-${idAvatar()}.svg'; // Исправлено
-    comment.message = '${messageArray[indexMessageArr()]}. ${messageArray[indexMessageArr()]}'; // Исправлено
-    comment.name = '${nameArray[indexNameArr()]}'; // Исправлено
+const photoArray = [];
 
-    return comment;
-  };
-};
-
-const numCommentsFunc = getRandomInteger(0, 30); // Исправлено
-const numLikesFunc = getRandomInteger(MIN_LIKES, MAX_LIKES); // Исправлено
-
-const createPhoto = () => {
-  let id = 1;
-
-  return () => {
-    const photo = {};
-    photo.id = id++;
-    photo.url = photos / ${ id }.jpg; // Исправлено
-    photo.description = 'Это фотография' №${ id }; // Исправлено
-    photo.likes = numLikesFunc(); // Исправлено
-    photo.comments = Array.from({ length: numCommentsFunc() }, createComment()); // Исправлено
-
-    return photo; // Возвращаем объект photo
-  };
-};
+for (let i = 1; i <= 25; i++) {
+  const photo = createPhoto();
+  photoArray.push(photo);
+}
