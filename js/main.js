@@ -11,12 +11,3 @@ photoArray.forEach((photo) => {
   imgElement.alt = photo.description;
   photoContainer.appendChild(imgElement);
 });
-
-
-const descriptionList = document.getElementById('description-list');
-
-photoArray.forEach((photo) => {
-  const listItem = document.createElement('li');
-  listItem.textContent = `${photo.description}` `(Likes: ${photo.likes})`;
-  descriptionList.appendChild(listItem);
-});
