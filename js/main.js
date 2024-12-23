@@ -1,13 +1,6 @@
-import { generatePhotosArray } from './modules/photoGenerator.js';
+import { generatePhotoArray } from './photoGeneretor.js';
+import { renderPictures } from './renderPictures.js';
 
-const photoArray = generatePhotosArray(25);
+const photoArray = generatePhotoArray();
 
-
-const photoContainer = document.getElementById('photo-container');
-
-photoArray.forEach((photo) => {
-  const imgElement = document.createElement('img');
-  imgElement.src = photo.url;
-  imgElement.alt = photo.description;
-  photoContainer.appendChild(imgElement);
-});
+renderPictures(photoArray);
