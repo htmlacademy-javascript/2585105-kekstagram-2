@@ -5,7 +5,7 @@ import { MIN_LIKES, MAX_LIKES } from './constants.js';
 const generatePhotoId = createIdGenerator();
 const generateUrlId = createIdGenerator();
 
-export const createPhoto = () => ({
+const createPhoto = () => ({
   id: generatePhotoId(),
   url: `photos/${generateUrlId()}.jpg`,
   description: 'У этого фото пока не добавили описание',
@@ -13,7 +13,7 @@ export const createPhoto = () => ({
   likes: getRandomInteger(MIN_LIKES, MAX_LIKES),
 });
 
-export const generatePhotoArray = () => {
+const generatePhotoArray = () => {
   const photoArray = [];
   for (let i = 1; i <= 25; i++) {
     const photo = createPhoto();
@@ -21,3 +21,5 @@ export const generatePhotoArray = () => {
   }
   return photoArray;
 };
+
+export { generatePhotoArray };
