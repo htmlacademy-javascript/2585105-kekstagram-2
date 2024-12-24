@@ -1,5 +1,6 @@
 const COMMENTS_PER_LOAD = 5;
 
+
 const bigPictureModal = document.querySelector('.big-picture');
 const commentsContainer = bigPictureModal.querySelector('.social__comments');
 const commentsDisplayedCount = bigPictureModal.querySelector('.social__comment-shown-count');
