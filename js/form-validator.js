@@ -2,8 +2,6 @@ import '../vendor/pristine/pristine.min.js';
 
 const MAX_TAGS = 5;
 const MAX_TAG_LENGTH = 20;
-
-
 const uploadForm = document.querySelector('.img-upload__form');
 const imgUploadInput = uploadForm.querySelector('.img-upload__input');
 const hashtagInput = uploadForm.querySelector('.text__hashtags');
