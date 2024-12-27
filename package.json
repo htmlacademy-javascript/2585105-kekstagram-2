@@ -21,10 +21,10 @@
     "lint": "eslint js/"
   },
   "engines": {
-    "node": "^20",
-    "npm": "^10"
+    "node": "20",
+    "npm": "10"
   },
   "dependencies": {
-    "pristinejs": "^1.1.0"
+    "pristinejs": "1.1.0"
   }
 }
