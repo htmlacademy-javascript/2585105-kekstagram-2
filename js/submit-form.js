@@ -1,8 +1,8 @@
 import { isEsc, toggleModalElement } from './utils.js';
-import { validateForm, resetValidateForm } from './validate-form.js';
-import { resetImageZoom } from './change-image-zoom.js';
-import { resetEffect } from './create-filters.js';
-import { sendData } from './api.js';
+import { isFormValid, resetFormValidation } from './form-validate.js';
+import { resetZoomToDefault } from './image-zoom.js';
+import { resetFiltersToDefault } from './filter-creation.js';
+import { sendDataToApi } from './api-requests.js';
 
 const SubmitButtonLabels = {
   IDLE: 'Сохранить',
@@ -36,9 +36,9 @@ const hideUploadForm = () => {
   toggleModalElement(imageUploadOverlay);
   document.removeEventListener('keydown', handleDocumentKeydown);
   enableSubmitButton();
-  resetValidateForm();
-  resetImageZoom();
-  resetEffect();
+  resetFormValidation();
+  resetZoomToDefault();
+  resetFiltersToDefault();
 };
 
 imageUploadForm.querySelector('.img-upload__cancel')
@@ -102,12 +102,12 @@ const showNotification = (template, cb = null) => {
 };
 
 const submitImageData = async (formElement) => {
-  const isValid = validateForm();
+  const isValid = isFormValid();
 
   if (isValid) {
     disableSubmitButton();
     try {
-      await sendData(new FormData(formElement));
+      await sendDataToApi(new FormData(formElement));
       showNotification(successNotificationTemplate, () => hideUploadForm());
     } catch (err) {
       showNotification(errorNotificationTemplate);
