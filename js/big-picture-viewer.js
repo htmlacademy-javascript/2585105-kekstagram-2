@@ -1,4 +1,4 @@
-import { renderComments, clearComments } from './render-comments.js';
+import { displayComments, clearComments } from './comments-viewer.js';
 import { isEsc, toggleModalElement } from './utils.js';
 
 
@@ -25,7 +25,7 @@ const openBigPicture = (photo) => {
   toggleModalElement(bigPicture);
   clearComments();
   editBigPicture(photo);
-  renderComments(photo.comments);
+  displayComments(photo.comments);
 };
 
 

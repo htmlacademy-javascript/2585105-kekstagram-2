@@ -1,9 +1,9 @@
-export const getRandomInteger = (min, max) => Math.floor(min + Math.random() * (max + 1 - min));
-
-export const createIdGenerator = () => {
-  let lastId = 0;
-  return () => ++lastId;
-};
+//export const getRandomInteger = (min, max) => Math.floor(min + Math.random() * (max + 1 - min));
+//
+//export const createIdGenerator = () => {
+// let lastId = 0;
+//return () => ++lastId;
+//};
 
 const ALERT_SHOW_TIME = 5000;
 const isEsc = (key) => key === 27;
