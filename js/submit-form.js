@@ -78,7 +78,7 @@ const hideNotification = (evt) => {
 
   if (evt.target === existElement || evt.target === closeButton || isEsc(evt.keyCode)) {
     existElement.remove();
-    document.body.removeEventListener('click', handleNotificationClick);
+    document.body.removeEventListener('click', notificationKeydownHandler);
     document.body.removeEventListener('keydown', notificationKeydownHandler);
   }
 };
