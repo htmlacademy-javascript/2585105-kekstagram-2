@@ -79,7 +79,7 @@ const hideNotification = (evt) => {
   if (evt.target === existElement || evt.target === closeButton || isEsc(evt.keyCode)) {
     existElement.remove();
     document.body.removeEventListener('click', handleNotificationClick);
-    document.body.removeEventListener('keydown', handleNotificationKeydown);
+    document.body.removeEventListener('keydown', notificationKeydownHandler);
   }
 };
 
@@ -87,7 +87,7 @@ function handleNotificationClick(evt) {
   hideNotification(evt);
 }
 
-function handleNotificationKeydown(evt) {
+function notificationKeydownHandler(evt) {
   hideNotification(evt);
 }
 
@@ -98,7 +98,7 @@ const showNotification = (template, cb = null) => {
 
   document.body.append(notificationNode);
   document.body.addEventListener('click', handleNotificationClick);
-  document.body.addEventListener('keydown', handleNotificationKeydown);
+  document.body.addEventListener('keydown', notificationKeydownHandler);
 };
 
 const submitImageData = async (formElement) => {
