@@ -78,12 +78,12 @@ const hideNotification = (evt) => {
 
   if (evt.target === existElement || evt.target === closeButton || isEsc(evt.keyCode)) {
     existElement.remove();
-    document.body.removeEventListener('click', notificationKeydownHandler);
+    document.body.removeEventListener('click', notificationClickHandler);
     document.body.removeEventListener('keydown', notificationKeydownHandler);
   }
 };
 
-function handleNotificationClick(evt) {
+function notificationClickHandler(evt) {
   hideNotification(evt);
 }
 
@@ -97,7 +97,7 @@ const showNotification = (template, cb = null) => {
   const notificationNode = template.cloneNode(true);
 
   document.body.append(notificationNode);
-  document.body.addEventListener('click', handleNotificationClick);
+  document.body.addEventListener('click', notificationClickHandler);
   document.body.addEventListener('keydown', notificationKeydownHandler);
 };
 
