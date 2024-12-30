@@ -7,13 +7,13 @@ const DEFAULT_SLIDER_OPTIONS = {
   step: 0.1,
   connect: 'lower',
 };
-const imageUploadForm = document.querySelector('.img-upload__form');
-const filterOptionsList = imageUploadForm.querySelector('.effects__list');
-const filterLevelValueInput = imageUploadForm.querySelector('.effect-level__value');
-const imagePreviewContainer = imageUploadForm.querySelector('.img-upload__preview');
-const filterLevelContainer = imageUploadForm.querySelector('.effect-level');
-const previewImage = imagePreviewContainer.querySelector('img');
-const filterLevelSlider = imageUploadForm.querySelector('.effect-level__slider');
+const imageUploadFormElement = document.querySelector('.img-upload__form');
+const filterOptionsListElement = imageUploadFormElement.querySelector('.effects__list');
+const filterLevelValueInputElement = imageUploadFormElement.querySelector('.effect-level__value');
+const imagePreviewContainerElement = imageUploadFormElement.querySelector('.img-upload__preview');
+const filterLevelContainerElement = imageUploadFormElement.querySelector('.effect-level');
+const previewImageElement = imagePreviewContainerElement.querySelector('img');
+const filterLevelSliderElement = imageUploadFormElement.querySelector('.effect-level__slider');
 
 const filterEffects = {
   none: {
@@ -21,7 +21,7 @@ const filterEffects = {
       ...DEFAULT_SLIDER_OPTIONS,
     },
     effect: () => {
-      filterLevelContainer.classList.add('hidden');
+      filterLevelContainerElement.classList.add('hidden');
       return 'none';
     },
   },
@@ -30,8 +30,8 @@ const filterEffects = {
       ...DEFAULT_SLIDER_OPTIONS,
     },
     effect: (value) => {
-      filterLevelContainer.classList.remove('hidden');
-      filterLevelValueInput.value = parseFloat(value, 10);
+      filterLevelContainerElement.classList.remove('hidden');
+      filterLevelValueInputElement.value = parseFloat(value, 10);
       return `grayscale(${value})`;
     },
   },
@@ -40,8 +40,8 @@ const filterEffects = {
       ...DEFAULT_SLIDER_OPTIONS,
     },
     effect: (value) => {
-      filterLevelContainer.classList.remove('hidden');
-      filterLevelValueInput.value = parseFloat(value, 10);
+      filterLevelContainerElement.classList.remove('hidden');
+      filterLevelValueInputElement.value = parseFloat(value, 10);
       return `sepia(${value})`;
     }
   },
@@ -55,8 +55,8 @@ const filterEffects = {
       step: 1,
     },
     effect: (value) => {
-      filterLevelContainer.classList.remove('hidden');
-      filterLevelValueInput.value = parseInt(value, 10);
+      filterLevelContainerElement.classList.remove('hidden');
+      filterLevelValueInputElement.value = parseInt(value, 10);
       return `invert(${value}%)`;
     }
   },
@@ -70,8 +70,8 @@ const filterEffects = {
       step: 0.1,
     },
     effect: (value) => {
-      filterLevelContainer.classList.remove('hidden');
-      filterLevelValueInput.value = parseFloat(value, 10);
+      filterLevelContainerElement.classList.remove('hidden');
+      filterLevelValueInputElement.value = parseFloat(value, 10);
       return `blur(${value}px)`;
     }
   },
@@ -85,8 +85,8 @@ const filterEffects = {
       step: 0.1,
     },
     effect: (value) => {
-      filterLevelContainer.classList.remove('hidden');
-      filterLevelValueInput.value = parseFloat(value, 10);
+      filterLevelContainerElement.classList.remove('hidden');
+      filterLevelValueInputElement.value = parseFloat(value, 10);
       return `brightness(${value})`;
     }
   },
@@ -94,25 +94,25 @@ const filterEffects = {
 
 const initializeFilters = () => {
   filterEffects.none.effect();
-  noUiSlider.create(filterLevelSlider, DEFAULT_SLIDER_OPTIONS);
+  noUiSlider.create(filterLevelSliderElement, DEFAULT_SLIDER_OPTIONS);
 };
 
 const updateSliderOptions = (effect) => {
-  filterLevelSlider.noUiSlider.updateOptions(filterEffects[effect].options);
+  filterLevelSliderElement.noUiSlider.updateOptions(filterEffects[effect].options);
 };
 
 const setEffectLevelChangeHandler = (effect) => {
-  filterLevelSlider.noUiSlider.on('slide', (value) => {
-    previewImage.style.filter = filterEffects[effect].effect(value);
+  filterLevelSliderElement.noUiSlider.on('slide', (value) => {
+    previewImageElement.style.filter = filterEffects[effect].effect(value);
   });
 };
 
 const applyFilterToPreviewImage = (effect) => {
   const startPointFilter = filterEffects[effect].options.range.max;
-  previewImage.style.filter = filterEffects[effect].effect(startPointFilter);
+  previewImageElement.style.filter = filterEffects[effect].effect(startPointFilter);
 };
 
-filterOptionsList.addEventListener('change', (evt) => {
+filterOptionsListElement.addEventListener('change', (evt) => {
   evt.preventDefault();
 
   const target = evt.target.closest('.effects__item').querySelector('input');
@@ -126,11 +126,11 @@ filterOptionsList.addEventListener('change', (evt) => {
 });
 
 const resetFiltersToDefault = () => {
-  filterLevelValueInput.value = '';
-  previewImage.style.removeProperty('filter');
+  filterLevelValueInputElement.value = '';
+  previewImageElement.style.removeProperty('filter');
 
-  filterLevelSlider.noUiSlider.updateOptions(DEFAULT_SLIDER_OPTIONS);
-  filterOptionsList.querySelector('#effect-none').checked = true;
+  filterLevelSliderElement.noUiSlider.updateOptions(DEFAULT_SLIDER_OPTIONS);
+  filterOptionsListElement.querySelector('#effect-none').checked = true;
   filterEffects.none.effect();
 };
 

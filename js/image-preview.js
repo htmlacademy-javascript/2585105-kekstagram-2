@@ -1,11 +1,11 @@
 import { openBigPicture } from './big-picture-viewer.js';
 
-const thumbnailTemplate = document.querySelector('#picture').content.querySelector('.picture');
-const thumbnailsContainer = document.querySelector('.pictures');
-const documentFragment = document.createDocumentFragment();
+const thumbnailTemplateElement = document.querySelector('#picture').content.querySelector('.picture');
+const thumbnailsElement = document.querySelector('.pictures');
+const documentElement = document.createDocumentFragment();
 
 const createThumbnail = (photo) => {
-  const thumbnailElement = thumbnailTemplate.cloneNode(true);
+  const thumbnailElement = thumbnailTemplateElement.cloneNode(true);
   const thumbnailImage = thumbnailElement.querySelector('.picture__img');
 
   thumbnailElement.href = photo.url;
@@ -26,12 +26,12 @@ const createThumbnail = (photo) => {
 };
 
 const displayThumbnails = (photoDataArray) => {
-  thumbnailsContainer.querySelectorAll('a.picture')
+  thumbnailsElement.querySelectorAll('a.picture')
     .forEach((thumbnail) => thumbnail.remove());
 
-  photoDataArray.forEach((photo) => documentFragment.append(createThumbnail(photo)));
+  photoDataArray.forEach((photo) => documentElement.append(createThumbnail(photo)));
 
-  thumbnailsContainer.append(documentFragment);
+  thumbnailsElement.append(documentElement);
 };
 
 export { displayThumbnails };

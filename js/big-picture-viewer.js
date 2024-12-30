@@ -2,27 +2,27 @@ import { displayComments, clearComments } from './comments-viewer.js';
 import { isEsc, toggleModalElement } from './utils.js';
 
 
-const bigPicture = document.querySelector('.big-picture');
-const bigPictureCloseButton = bigPicture.querySelector('.big-picture__cancel');
-const bigPictureImg = bigPicture.querySelector('img');
-const likesCount = bigPicture.querySelector('.likes-count');
-const commentsCount = bigPicture.querySelector('.social__comment-total-count');
-const socialCaption = bigPicture.querySelector('.social__caption');
+const bigPictureElement = document.querySelector('.big-picture');
+const bigPictureCloseButtonElement = bigPictureElement.querySelector('.big-picture__cancel');
+const bigPictureImgElement = bigPictureElement.querySelector('img');
+const likesCountElement = bigPictureElement.querySelector('.likes-count');
+const commentsCountElement = bigPictureElement.querySelector('.social__comment-total-count');
+const socialCaptionElement = bigPictureElement.querySelector('.social__caption');
 
 
 const editBigPicture = (photo) => {
-  likesCount.textContent = photo.likes;
-  commentsCount.textContent = photo.comments.length;
-  socialCaption.textContent = photo.description;
-  bigPictureImg.src = photo.url;
-  bigPictureImg.alt = photo.description;
+  likesCountElement.textContent = photo.likes;
+  commentsCountElement.textContent = photo.comments.length;
+  socialCaptionElement.textContent = photo.description;
+  bigPictureImgElement.src = photo.url;
+  bigPictureImgElement.alt = photo.description;
 };
 
 
 const openBigPicture = (photo) => {
   document.addEventListener('keydown', onDocumentKeydown);
 
-  toggleModalElement(bigPicture);
+  toggleModalElement(bigPictureElement);
   clearComments();
   editBigPicture(photo);
   displayComments(photo.comments);
@@ -32,7 +32,7 @@ const openBigPicture = (photo) => {
 const closeBigPicture = () => {
   document.removeEventListener('keydown', onDocumentKeydown);
 
-  toggleModalElement(bigPicture);
+  toggleModalElement(bigPictureElement);
 };
 
 
@@ -50,7 +50,7 @@ const onCloseButtonClick = () => {
 };
 
 
-bigPictureCloseButton.addEventListener('click', onCloseButtonClick);
+bigPictureCloseButtonElement.addEventListener('click', onCloseButtonClick);
 
 
 export { openBigPicture };

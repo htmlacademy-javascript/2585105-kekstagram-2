@@ -8,15 +8,15 @@ const ImageZoomSettings = {
 };
 
 
-const imageUploadOverlay = document.querySelector('.img-upload__overlay');
-const uploadedImage = imageUploadOverlay.querySelector('img');
-const zoomOutButton = imageUploadOverlay.querySelector('.scale__control--smaller');
-const zoomLevelInput = imageUploadOverlay.querySelector('.scale__control--value');
-const zoomInButton = imageUploadOverlay.querySelector('.scale__control--bigger');
+const imageUploadOverlayElement = document.querySelector('.img-upload__overlay');
+const uploadedImageElement = imageUploadOverlayElement.querySelector('img');
+const zoomOutButtonElement = imageUploadOverlayElement.querySelector('.scale__control--smaller');
+const zoomLevelInputElement = imageUploadOverlayElement.querySelector('.scale__control--value');
+const zoomInButtonElement = imageUploadOverlayElement.querySelector('.scale__control--bigger');
 
 
 const adjustImageZoom = (factor = 1) => {
-  let size = parseInt(zoomLevelInput.value, PARSE_INT_RADIX) + (ImageZoomSettings.STEP * factor);
+  let size = parseInt(zoomLevelInputElement.value, PARSE_INT_RADIX) + (ImageZoomSettings.STEP * factor);
 
   if (size < ImageZoomSettings.MIN) {
     size = ImageZoomSettings.MIN;
@@ -26,18 +26,18 @@ const adjustImageZoom = (factor = 1) => {
     size = ImageZoomSettings.MAX;
   }
 
-  zoomLevelInput.value = `${size}%`;
-  uploadedImage.style.transform = `scale(${size * TRANSFORM_SCALE_FACTOR})`;
+  zoomLevelInputElement.value = `${size}%`;
+  uploadedImageElement.style.transform = `scale(${size * TRANSFORM_SCALE_FACTOR})`;
 };
 
 
-zoomOutButton.addEventListener('click', () => adjustImageZoom(-1));
-zoomInButton.addEventListener('click', () => adjustImageZoom());
+zoomOutButtonElement.addEventListener('click', () => adjustImageZoom(-1));
+zoomInButtonElement.addEventListener('click', () => adjustImageZoom());
 
 
 const resetZoomToDefault = () => {
-  uploadedImage.style.removeProperty('transform');
-  zoomLevelInput.value = `${ImageZoomSettings.MAX}%`;
+  uploadedImageElement.style.removeProperty('transform');
+  zoomLevelInputElement.value = `${ImageZoomSettings.MAX}%`;
 };
 
 export { resetZoomToDefault };
