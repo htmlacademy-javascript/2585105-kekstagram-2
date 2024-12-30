@@ -1,6 +1,6 @@
 const ALERT_SHOW_TIME = 5000;
 const isEsc = (key) => key === 27;
-const isEnter = (key) => key === 13;
+
 
 const toggleModalElement = (modalElement) => {
   modalElement.classList.toggle('hidden');
@@ -34,7 +34,6 @@ const debounce = (callback, timeoutDelay = 500) => {
 
 export {
   isEsc,
-  isEnter,
   showAlert,
   showImgFilterButtons,
   debounce,

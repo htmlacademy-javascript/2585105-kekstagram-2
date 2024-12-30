@@ -2,17 +2,17 @@ import '../vendor/pristine/pristine.min.js';
 
 const MAX_TAGS = 5;
 const MAX_TAG_LENGTH = 20;
-const uploadForm = document.querySelector('.img-upload__form');
-const imgUploadInput = uploadForm.querySelector('.img-upload__input');
-const hashtagInput = uploadForm.querySelector('.text__hashtags');
-const textDescription = uploadForm.querySelector('.text__description');
-const submitButton = uploadForm.querySelector('.img-upload__submit');
+const uploadFormElement = document.querySelector('.img-upload__form');
+const imgUploadInputElement = uploadFormElement.querySelector('.img-upload__input');
+const hashtagInputElement = uploadFormElement.querySelector('.text__hashtags');
+const textDescriptionElement = uploadFormElement.querySelector('.text__description');
+const submitButtonElement = uploadFormElement.querySelector('.img-upload__submit');
 
 
 let errorHashtagMessageTemplate = '';
 
 
-const pristine = new Pristine(uploadForm, {
+const pristine = new Pristine(uploadFormElement, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextClass: 'img-upload__field-wrapper--error',
@@ -27,35 +27,35 @@ const validateHashtag = (value) => {
     return true;
   }
 
-  const inputArray = inputText.split(/\s+/);
+  const inputArrays = inputText.split(/\s+/);
 
   const rules = [
     {
-      check: inputArray.some((item) => item === '#'),
+      check: inputArrays.some((item) => item === '#'),
       error: 'Хэштег не может состоять только из одной # (решетки)',
     },
     {
-      check: inputArray.some((item) => item.slice(1).includes('#')),
+      check: inputArrays.some((item) => item.slice(1).includes('#')),
       error: 'Хэштег разделяются пробелами',
     },
     {
-      check: inputArray.some((item) => item[0] !== '#'),
+      check: inputArrays.some((item) => item[0] !== '#'),
       error: 'Хэштег должен начинаться с # (решетки)',
     },
     {
-      check: inputArray.some((item, i, arr) => arr.includes(item, i + 1)),
+      check: inputArrays.some((item, i, arr) => arr.includes(item, i + 1)),
       error: 'Хэштег не должны повторяться',
     },
     {
-      check: inputArray.some((item) => item.length > MAX_TAG_LENGTH),
+      check: inputArrays.some((item) => item.length > MAX_TAG_LENGTH),
       error: `Максимальная длина одного хэштега ${MAX_TAG_LENGTH} включая # (решктку)`,
     },
     {
-      check: inputArray.length > MAX_TAGS,
+      check: inputArrays.length > MAX_TAGS,
       error: `Нельзя указать больше ${MAX_TAGS} хэштегов`,
     },
     {
-      check: inputArray.some((item) => !/^#[a-zа-яё0-9]{1,19}$/i.test(item)),
+      check: inputArrays.some((item) => !/^#[a-zа-яё0-9]{1,19}$/i.test(item)),
       error: 'Хэштег содержит недопустимые символы',
     },
   ];
@@ -74,26 +74,26 @@ const validateHashtag = (value) => {
 const validateTextDescription = (value) => value.length <= 140;
 
 
-pristine.addValidator(hashtagInput, validateHashtag, () => errorHashtagMessageTemplate);
-pristine.addValidator(textDescription, validateTextDescription, 'Максимум 140 символов');
+pristine.addValidator(hashtagInputElement, validateHashtag, () => errorHashtagMessageTemplate);
+pristine.addValidator(textDescriptionElement, validateTextDescription, 'Максимум 140 символов');
 
 
 const onTextHashtagInput = () => {
-  submitButton.disabled = !pristine.validate();
+  submitButtonElement.disabled = !pristine.validate();
 };
 
 
-hashtagInput.addEventListener('input', onTextHashtagInput);
-textDescription.addEventListener('input', onTextHashtagInput);
+hashtagInputElement.addEventListener('input', onTextHashtagInput);
+textDescriptionElement.addEventListener('input', onTextHashtagInput);
 
 
 const isFormValid = () => pristine.validate();
 
 
 const resetFormValidation = () => {
-  imgUploadInput.value = '';
-  hashtagInput.value = '';
-  textDescription.value = '';
+  imgUploadInputElement.value = '';
+  hashtagInputElement.value = '';
+  textDescriptionElement.value = '';
   pristine.reset();
 };
 

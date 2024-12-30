@@ -9,44 +9,44 @@ const SubmitButtonLabels = {
   SENDING: 'Сохраняю...'
 };
 
-const imageUploadForm = document.querySelector('.img-upload__form');
-const imageUploadOverlay = imageUploadForm.querySelector('.img-upload__overlay');
-const imageUploadInput = imageUploadForm.querySelector('.img-upload__input');
-const filterPreviews = imageUploadForm.querySelectorAll('.effects__preview');
-const uploadSubmitButton = imageUploadOverlay.querySelector('.img-upload__submit');
-const successNotificationTemplate = document.querySelector('#success').content;
-const errorNotificationTemplate = document.querySelector('#error').content;
+const imageUploadFormElement = document.querySelector('.img-upload__form');
+const imageUploadOverlayElement = imageUploadFormElement.querySelector('.img-upload__overlay');
+const imageUploadInputElement = imageUploadFormElement.querySelector('.img-upload__input');
+const filterPreviewsElement = imageUploadFormElement.querySelectorAll('.effects__preview');
+const uploadSubmitButtonElement = imageUploadOverlayElement.querySelector('.img-upload__submit');
+const successNotificationElement = document.querySelector('#success').content;
+const errorNotificationElement = document.querySelector('#error').content;
 
 const disableSubmitButton = () => {
-  uploadSubmitButton.disabled = true;
-  uploadSubmitButton.textContent = SubmitButtonLabels.SENDING;
+  uploadSubmitButtonElement.disabled = true;
+  uploadSubmitButtonElement.textContent = SubmitButtonLabels.SENDING;
 };
 
 const enableSubmitButton = () => {
-  uploadSubmitButton.disabled = false;
-  uploadSubmitButton.textContent = SubmitButtonLabels.IDLE;
+  uploadSubmitButtonElement.disabled = false;
+  uploadSubmitButtonElement.textContent = SubmitButtonLabels.IDLE;
 };
 
 const showUploadForm = () => {
-  toggleModalElement(imageUploadOverlay);
-  document.addEventListener('keydown', handleDocumentKeydown);
+  toggleModalElement(imageUploadOverlayElement);
+  document.addEventListener('keydown', onDocumentKeydown);
 };
 
 const hideUploadForm = () => {
-  toggleModalElement(imageUploadOverlay);
-  document.removeEventListener('keydown', handleDocumentKeydown);
+  toggleModalElement(imageUploadOverlayElement);
+  document.removeEventListener('keydown', onDocumentKeydown);
   enableSubmitButton();
   resetFormValidation();
   resetZoomToDefault();
   resetFiltersToDefault();
 };
 
-imageUploadForm.querySelector('.img-upload__cancel')
+imageUploadFormElement.querySelector('.img-upload__cancel')
   .addEventListener('click', () => {
     hideUploadForm();
   });
 
-function handleDocumentKeydown(evt) {
+function onDocumentKeydown(evt) {
   if (
     isEsc(evt.keyCode) &&
     !evt.target.classList.contains('text__hashtags') &&
@@ -57,13 +57,13 @@ function handleDocumentKeydown(evt) {
   }
 }
 
-imageUploadInput.addEventListener('change', () => {
-  const file = imageUploadInput.files[0];
-  const image = imageUploadOverlay.querySelector('img');
+imageUploadInputElement.addEventListener('change', () => {
+  const file = imageUploadInputElement.files[0];
+  const image = imageUploadOverlayElement.querySelector('img');
 
   image.src = URL.createObjectURL(file);
 
-  filterPreviews.forEach((preview) => {
+  filterPreviewsElement.forEach((preview) => {
     preview.style.backgroundImage = `url(${URL.createObjectURL(file)})`;
   });
 
@@ -74,20 +74,20 @@ const hideNotification = (evt) => {
   evt.stopPropagation();
 
   const existElement = document.querySelector('.success') || document.querySelector('.error');
-  const closeButton = existElement.querySelector('button');
+  const closeButtonElement = existElement.querySelector('button');
 
-  if (evt.target === existElement || evt.target === closeButton || isEsc(evt.keyCode)) {
+  if (evt.target === existElement || evt.target === closeButtonElement || isEsc(evt.keyCode)) {
     existElement.remove();
-    document.body.removeEventListener('click', notificationClickHandler);
-    document.body.removeEventListener('keydown', notificationKeydownHandler);
+    document.body.removeEventListener('click', onDocumentNotificationClick);
+    document.body.removeEventListener('keydown', onDocumentNotificationKeydown);
   }
 };
 
-function notificationClickHandler(evt) {
+function onDocumentNotificationClick(evt) {
   hideNotification(evt);
 }
 
-function notificationKeydownHandler(evt) {
+function onDocumentNotificationKeydown(evt) {
   hideNotification(evt);
 }
 
@@ -97,8 +97,8 @@ const showNotification = (template, cb = null) => {
   const notificationNode = template.cloneNode(true);
 
   document.body.append(notificationNode);
-  document.body.addEventListener('click', notificationClickHandler);
-  document.body.addEventListener('keydown', notificationKeydownHandler);
+  document.body.addEventListener('click', onDocumentNotificationClick);
+  document.body.addEventListener('keydown', onDocumentNotificationKeydown);
 };
 
 const submitImageData = async (formElement) => {
@@ -108,20 +108,20 @@ const submitImageData = async (formElement) => {
     disableSubmitButton();
     try {
       await sendDataToApi(new FormData(formElement));
-      showNotification(successNotificationTemplate, () => hideUploadForm());
+      showNotification(successNotificationElement, () => hideUploadForm());
     } catch (err) {
-      showNotification(errorNotificationTemplate);
+      showNotification(errorNotificationElement);
     } finally {
       enableSubmitButton();
     }
   }
 };
 
-const handleSubmitButtonClick = (evt) => {
+const onSubmitButtonClick = (evt) => {
   evt.preventDefault();
   submitImageData(evt.target);
 };
 
-imageUploadForm.addEventListener('submit', handleSubmitButtonClick);
+imageUploadFormElement.addEventListener('submit', onSubmitButtonClick);
 
 export { submitImageData };
